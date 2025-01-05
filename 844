@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP3 TON NFT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:nth-child(1) {
+            background: linear-gradient(to right, #3898ff, #3570ff);
+            color: white;
+        }
+
+        .nav-links a:nth-child(2) {
+            background: linear-gradient(to right, #ffb347, #ffcc33);
+            color: white;
+        }
+
+        .nav-links a:nth-child(3) {
+            background: linear-gradient(to right, #fff176, #ffee58);
+            color: black;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            background-color: rgba(17, 17, 17, 0.8);
+            padding: 0.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            width: 300px;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: #3898ff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .featured-nft {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .featured-image video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nft-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            background-color: #0a0a0a;
+        }
+
+        .nft-card {
+            background-color: #111111;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 1px solid #2a2a2a;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nft-image {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .nft-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nft-info {
+            padding: 1rem;
+        }
+
+        .nft-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nft-badge {
+            background-color: #3898ff;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .nft-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3898ff;
+        }
+
+        .ton-badge {
+            background-color: rgba(56, 152, 255, 0.2);
+            color: #3898ff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            background-color: #3898ff;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+
+            .nft-grid {
+                padding: 1rem;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="logo">IP3 NFT</div>
+        
+        <div class="nav-links">
+            <a href="https://ton.diamonds">Visit TON Diamonds</a>
+            <a href="https://ip3.one/">IP3.ONE Casino</a>
+            <a href="https://fragment.com">Fragmrnt ɪᴘ3.ᴏɴᴇ</a>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="搜尋 NFT...">
+            <button class="search-btn">搜尋</button>
+        </div>
+    </nav>
+
+    <!-- A. 第一個視頻背景 -->
+    <div class="featured-nft">
+        <div class="featured-image">
+            <video autoplay loop muted playsinline>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- B. NFT 卡片網格 -->
+    <div class="nft-grid">
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft1.jpg" alt="NFT 1">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #1
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">1,000</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft2.jpg" alt="NFT 2">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #2
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">1,500</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft3.jpg" alt="NFT 3">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #3
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">2,000</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft4.jpg" alt="NFT 4">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #4
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">2,500</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft5.jpg" alt="NFT 5">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #5
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">3,000</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+
+        <div class="nft-card">
+            <div class="nft-image">
+                <img src="nft6.jpg" alt="NFT 6">
+            </div>
+            <div class="nft-info">
+                <div class="nft-title">
+                    WK Collection #6
+                    <span class="nft-badge">NFT</span>
+                </div>
+                <div class="nft-price">
+                    <span class="price-amount">3,500</span>
+                    <span class="ton-badge">TON</span>
+                </div>
+                <a href="https://wallet.ton.org/" class="action-button">連接錢包購買</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- C. 最後一個視頻背景 -->
+    <div class="featured-nft">
+        <div class="featured-image">
+            <video autoplay loop muted playsinline>
+                <source src="video副本.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</body>
+</html>
